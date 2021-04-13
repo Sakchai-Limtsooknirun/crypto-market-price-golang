@@ -2,9 +2,11 @@ package main
 
 import (
 	"alert/crypto/markets_usercase"
+	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -17,8 +19,16 @@ func main() {
 	// finally, instead of passing in nil, we want
 	// to pass in our newly created router as the second
 	// argument
-	port := ":8080"
-	log.Println("Application Starting with Port "+port)
-	log.Fatal(http.ListenAndServe(port, myRouter))
+
+	log.Fatal(http.ListenAndServe(getPort(), myRouter))
 }
 
+
+func getPort() string {
+	var port = os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+		fmt.Println("No Port In Heroku " + port)
+	}
+	return ":" + port
+}
