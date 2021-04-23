@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func MarketPriceByIds(ids string) *model.MarketCurrencyData {
+func MarketPriceByIds(ids string) model.MarketCurrencyData {
 	url := "https://api.coingecko.com/api/v3/coins/markets"
 	method := "GET"
 	client := &http.Client {
@@ -34,7 +34,7 @@ func MarketPriceByIds(ids string) *model.MarketCurrencyData {
 	}
 	defer res.Body.Close()
 
-	marketCurrencyData := new(model.MarketCurrencyData)
-	_ = json.NewDecoder(res.Body).Decode(marketCurrencyData)
+	var marketCurrencyData model.MarketCurrencyData
+	_ = json.NewDecoder(res.Body).Decode(&marketCurrencyData)
 	return marketCurrencyData
 }

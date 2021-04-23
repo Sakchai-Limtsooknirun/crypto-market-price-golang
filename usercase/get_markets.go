@@ -1,4 +1,4 @@
-package markets_usercase
+package usercase
 
 import (
 	"alert/crypto/api"
@@ -17,7 +17,7 @@ func GetMarkets(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var res *model.MarketCurrencyData = nil
+	var res model.MarketCurrencyData
 	var ids = ""
 
 
@@ -31,9 +31,9 @@ func GetMarkets(w http.ResponseWriter, r *http.Request) {
 	if idsQuery != "" {
 		ids = idsQuery
 	}
-
 	res = api.MarketPriceByIds(ids)
-	if err := json.NewEncoder(w).Encode(res); err != nil {
+
+	if err := json.NewEncoder(w).Encode(&res); err != nil {
 		log.Println(err)
 		http.Error(w, "oops", http.StatusInternalServerError)
 	}
