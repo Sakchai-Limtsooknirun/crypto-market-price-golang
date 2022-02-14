@@ -2,9 +2,10 @@ package main
 
 import (
 	"alert/crypto/usercase"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -19,7 +20,6 @@ func main() {
 	// argument
 	port := ":8080"
 	usercase.CronToTriggerWebhook()
-	log.Println("Application Starting with Port "+port)
+	log.Println("Application Starting with Port " + port)
 	log.Fatal(http.ListenAndServe(port, myRouter))
 }
-
